@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
-import { StackNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
 
 import DeviceSetup from './components/DeviceSetup';
 
-export const AppNavigator = StackNavigator(
+export const AppNavigator = createStackNavigator(
   {
     DeviceSetup
   },
