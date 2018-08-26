@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { SignInPayload } from './types/qkApi';
+import { Employee } from './types';
 
 export default class QualityKitchenDataSource {
   private qkClient: AxiosInstance;
@@ -8,7 +9,7 @@ export default class QualityKitchenDataSource {
     this.qkClient = axios.create(config);
   }
 
-  async login(email: string, pin: string): Promise<any> {
+  async login(email: string, pin: string): Promise<Employee> {
     const payload: SignInPayload = {
       EmailAddress: email,
       EmployeeCode: pin
