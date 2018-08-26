@@ -8,6 +8,8 @@
     "@types/react-native": "^0.55.2",
     "@types/react-navigation": "^2.0.17",
     "concurrently": "^3.5.1",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.2.2",
     "react-native-scripts": "1.13.1",
     "rimraf": "^2.6.2",
     "tslint": "^5.11.0",
@@ -26,12 +28,18 @@
     "tsc:watch": "tsc -w",
     "clean": "rimraf build",
     "build": "yarn run clean && yarn run tsc --",
-    "watch": "yarn run build -- -w"
+    "watch": "yarn run build -- -w",
+    "precommit": "lint-staged"
   },
   "dependencies": {
     "expo": "^26.0.0",
     "react": "16.3.0-alpha.1",
     "react-native": "0.54.0",
     "react-navigation": "^2.12.1"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "yarn lint"
+    ]
   }
 }
