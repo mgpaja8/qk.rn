@@ -3,7 +3,13 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-nativ
 import translation from '../lib/translation';
 import { color } from '../styles';
 
-export class DeviceSetupForm extends PureComponent {
+interface DeviceSetupFormValues {
+  id?: string;
+}
+
+export type DeviceSetupFormProps = DeviceSetupFormValues;
+
+export class DeviceSetupForm extends PureComponent<DeviceSetupFormProps> {
   render(): React.ReactNode {
     return (
       <View style={style.formContainer}>
