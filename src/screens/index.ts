@@ -1,9 +1,11 @@
 import { NavigationRouteConfigMap } from 'react-navigation';
 
 import DeviceSetupScreen from './DeviceSetupScreen';
+import CheckInScreen from './CheckInScreen';
 
 const routes: NavigationRouteConfigMap = {
-  DeviceSetupScreen
+  DeviceSetupScreen,
+  CheckInScreen
 };
 
 export default routes;
