@@ -1,19 +1,19 @@
 import React, { PureComponent } from 'react';
-import { StackNavigator } from 'react-navigation'
+import { StackNavigator } from 'react-navigation';
 
-import DeviceRegistration from './components/DeviceRegistration';
+import DeviceSetup from './components/DeviceSetup';
 
 export const AppNavigator = StackNavigator(
   {
-    DeviceRegistration,
+    DeviceSetup
   },
   {
-    initialRouteName: 'DeviceRegistration',
+    initialRouteName: 'DeviceSetup'
   }
 );
 
 export default class App extends PureComponent {
-  render() {
+  render(): React.ReactNode {
     return <AppNavigator />;
   }
 }
