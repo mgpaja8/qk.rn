@@ -6,10 +6,13 @@
     "@types/react": "^16.3.10",
     "@types/react-dom": "^16.0.5",
     "@types/react-native": "^0.55.2",
+    "@types/react-navigation": "^2.0.17",
     "concurrently": "^3.5.1",
     "react-native-scripts": "1.13.1",
     "rimraf": "^2.6.2",
-    "tslint": "^5.9.1",
+    "tslint": "^5.11.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "tslint-react": "^3.6.0",
     "typescript": "^2.8.1"
   },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
@@ -18,7 +21,7 @@
     "eject": "react-native-scripts eject",
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
-    "lint": "tslint src/**/*.ts",
+    "lint": "tslint src/**/*.ts*",
     "tsc": "tsc",
     "tsc:watch": "tsc -w",
     "clean": "rimraf build",
@@ -28,6 +31,7 @@
   "dependencies": {
     "expo": "^26.0.0",
     "react": "16.3.0-alpha.1",
-    "react-native": "0.54.0"
+    "react-native": "0.54.0",
+    "react-navigation": "^2.12.1"
   }
 }
