@@ -1,12 +1,12 @@
 import React, { PureComponent } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { NavigationStackScreenOptions } from 'react-navigation';
-import { DeviceSetupForm } from './DeviceSetupForm';
+import { DeviceSetupForm } from '../components/DeviceSetupForm';
 import { color } from '../styles';
 
 const logo = require('../../assets/logoWhite.png');
 
-export default class DeviceSetup extends PureComponent {
+export default class DeviceSetupScreen extends PureComponent {
   static navigationOptions: NavigationStackScreenOptions = {
     header: null
   };

@@ -1,2 +1,2 @@
-import App from './dist/App';
+import App from './dist';
 export default App;
