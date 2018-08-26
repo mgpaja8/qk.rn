@@ -1,15 +1,15 @@
 import { ActionReducer } from '../lib/redux/reducers';
-import operationReducer from './operationReducer';
+import employeeReducer from './employeeReducer';
 
-import { OperaionStore } from '../store';
+import { EmployeeStore } from '../store';
 
 export interface QKReducers {
-  operation: ActionReducer<OperaionStore>;
+  employee: ActionReducer<EmployeeStore>;
 }
 
 // TODO: Fix type of reducers (Should be QKReducers)
 const reducers: any = {
-  operation: operationReducer
+  employee: employeeReducer
 };
 
 export default reducers;

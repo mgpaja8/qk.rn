@@ -1,7 +1,11 @@
+import { AxiosError } from 'axios';
+import { APIResult } from './lib/redux/reducers';
+import { Employee } from './datasource/types';
+
 export interface AppStore {
-  operation: OperaionStore;
+  employee: EmployeeStore;
 }
 
-export interface OperaionStore {
-  id?: string;
+export interface EmployeeStore {
+  signedInEmployee: APIResult<Employee, AxiosError>;
 }
