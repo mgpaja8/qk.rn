@@ -19,7 +19,7 @@ export default class DeviceSetupScreen extends PureComponent<DeviceSetupScreenPr
   componentDidMount(): void {
     getOperationId()
       .then(operationId => {
-        if (!operationId) {
+        if (operationId) {
           this.props.navigation.push('CheckInScreen');
         }
       })
