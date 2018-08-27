@@ -11,3 +11,7 @@ export async function getOperationId(): Promise<string> {
 export async function setOperationId(operationId: string): Promise<void> {
   return AsyncStorage.setItem(ASYNC_STORAGE_KEYS.OPERATION_ID, operationId);
 }
+
+export async function signOutFromOperation(): Promise<void> {
+  return AsyncStorage.removeItem(ASYNC_STORAGE_KEYS.OPERATION_ID);
+}
