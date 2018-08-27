@@ -5,6 +5,7 @@ import { Action } from '../lib/redux/actions';
 import { AppStore } from '../store';
 import { DeviceSetupForm, DeviceSetupFormProps } from '../components';
 import { signIn } from '../actions/employeeActions';
+import { ScreenProps } from '../lib/types';
 
 type StoreProps = Pick<DeviceSetupFormProps, 'loading' | 'error' | 'signedInEmployee'>;
 const mapStateToProps: (store: AppStore) => StoreProps = store => {
@@ -26,5 +27,5 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   };
 };
 
-export const DeviceSetupFormContainer: ComponentClass
+export const DeviceSetupFormContainer: ComponentClass<ScreenProps>
   = connect(mapStateToProps, mapDispatchToProps)(DeviceSetupForm);

@@ -30,7 +30,7 @@ export default class DeviceSetupScreen extends PureComponent<DeviceSetupScreenPr
     return (
       <View style={style.container}>
         <Image source={logo} style={style.logoStyle}/>
-        <DeviceSetupFormContainer />
+        <DeviceSetupFormContainer navigation={this.props.navigation}/>
       </View>
     );
   }

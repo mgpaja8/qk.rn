@@ -11,22 +11,63 @@ import translation from '../lib/translation';
 import { color } from '../styles';
 import { AxiosError } from 'axios';
 import { Employee } from '../datasource/types';
+import { ScreenProps } from '../lib/types';
+import { setOperationId } from '../lib/asyncStorageManager';
 
-interface DeviceSetupFormValues {
+export interface DeviceSetupFormValues {
   loading: boolean;
   error?: AxiosError;
   signedInEmployee?: Employee;
 }
 
-interface DeviceSetupFormActions {
+export interface DeviceSetupFormActions {
   signIn: (email: string, pin: string) => void;
 }
 
-export type DeviceSetupFormProps = DeviceSetupFormValues & DeviceSetupFormActions;
+export type DeviceSetupFormProps = DeviceSetupFormValues & DeviceSetupFormActions & ScreenProps;
 
-export class DeviceSetupForm extends PureComponent<DeviceSetupFormProps> {
+export interface FieldType {
+  value: string;
+  error: boolean;
+  errorMessage?: string;
+}
+
+export interface DeviceSetupFormState {
+  form: {
+    email: FieldType;
+    pin: FieldType;
+  };
+}
+
+export class DeviceSetupForm extends PureComponent<DeviceSetupFormProps, DeviceSetupFormState> {
+  constructor(props: DeviceSetupFormProps) {
+    super(props);
+
+    this.state = {
+      form: {
+        email: {
+          value: '',
+          error: false
+        },
+        pin: {
+          value: '',
+          error: false
+        }
+      }
+    };
+  }
+
+  componentDidUpdate(prevProps: DeviceSetupFormProps): void {
+    const { signedInEmployee } = this.props;
+    if (signedInEmployee && signedInEmployee !== prevProps.signedInEmployee) {
+      setOperationId(signedInEmployee.operationId);
+      this.props.navigation.push('CheckInScreen');
+    }
+  }
+
   render(): React.ReactNode {
     const { error, loading } = this.props;
+    const { email, pin } = this.state.form;
     return (
       <View style={style.formContainer}>
         {error && this.renderError(error)}
@@ -35,14 +76,26 @@ export class DeviceSetupForm extends PureComponent<DeviceSetupFormProps> {
           <TextInput
             style={style.textboxContainer}
             placeholder={translation.EMAIL_ADDRESS_PLACEHOLDER}
+            keyboardType='email-address'
+            onChangeText={this.onEmailChange}
+            value={email.value}
+            autoCorrect={false}
+            autoCapitalize='none'
           />
+          {email.error && <Text style={style.errorField}>{email.errorMessage}</Text>}
         </View>
         <View style={style.groupStyle}>
           <Text style={style.labelText}>{translation.PIN_LABEL}</Text>
           <TextInput
             style={style.textboxContainer}
             placeholder={translation.PIN_PLACEHOLDER}
+            keyboardType='numeric'
+            onChangeText={this.onPinChange}
+            value={pin.value}
+            autoCorrect={false}
+            autoCapitalize='none'
           />
+          {pin.error && <Text style={style.errorField}>{pin.errorMessage}</Text>}
         </View>
         <TouchableOpacity
           style={style.loginButtonView}
@@ -70,8 +123,29 @@ export class DeviceSetupForm extends PureComponent<DeviceSetupFormProps> {
     );
   }
 
+  private onEmailChange = (value: string) => {
+    this.setState({
+      ...this.state,
+      form : {
+        ...this.state.form,
+        email: { value, error: false }
+      }
+    });
+  }
+
+  private onPinChange = (value: string) => {
+    this.setState({
+      ...this.state,
+      form : {
+        ...this.state.form,
+        pin: { value, error: false }
+      }
+    });
+  }
+
   private onLoginPress = () => {
-    console.log('Login pressed'); // TODO: Hook to real event
+    const { email, pin } = this.state.form;
+    this.props.signIn(email.value, pin.value);
   }
 }
 
@@ -115,5 +189,11 @@ const style = StyleSheet.create({
     fontSize: 12,
     color: color.secondary,
     marginBottom: 10
+  },
+  errorField: {
+    fontWeight: '500',
+    fontSize: 12,
+    color: color.secondary,
+    marginTop: 10
   }
 });
