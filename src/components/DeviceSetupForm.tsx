@@ -61,7 +61,7 @@ export class DeviceSetupForm extends PureComponent<DeviceSetupFormProps, DeviceS
     const { signedInEmployee } = this.props;
     if (signedInEmployee && signedInEmployee !== prevProps.signedInEmployee) {
       setOperationId(signedInEmployee.operationId);
-      this.props.navigation.push('CheckInScreen');
+      this.props.navigation.push('SignInScreen');
     }
   }
 

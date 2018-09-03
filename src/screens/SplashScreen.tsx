@@ -18,7 +18,7 @@ export default class SplashScreen extends PureComponent<SplashScreenProps> {
     getOperationId()
       .then(operationId => {
         if (operationId) {
-          this.props.navigation.push('CheckInScreen');
+          this.props.navigation.push('SignInScreen');
         } else {
           this.props.navigation.push('DeviceSetupScreen');
         }
