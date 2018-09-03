@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { color } from '../styles';
 import translation from '../lib/translation';
-import { DigitButton } from '../components';
+import { CodeField, DigitButton } from '../components';
 
 export interface SignInProps {
   testProp?: string;
@@ -21,10 +21,18 @@ export class SignIn extends PureComponent<SignInProps, SignInState> {
     };
   }
 
+  componentDidUpdate(): void {
+    const { code } = this.state;
+    if (code.length === 4) {
+      console.log('SUBMIT PASS');
+    }
+  }
+
   render(): React.ReactNode {
     return (
       <View style={style.container}>
         <Text style={style.headerText}>{translation.SIGN_IN_HEADER}</Text>
+        {this.renderCode()}
         {this.renderDigits()}
       </View>
     );
@@ -32,7 +40,7 @@ export class SignIn extends PureComponent<SignInProps, SignInState> {
 
   private renderDigits = (): React.ReactNode => {
     const { rowContainerView } = style;
-    const disabled = this.state.code.length === 4 ? true : false;
+    const disabled = this.state.code.length === 4;
 
     return(
       <View>
@@ -94,6 +102,24 @@ export class SignIn extends PureComponent<SignInProps, SignInState> {
             disabled={disabled}
           />
         </View>
+      </View>
+    );
+  }
+
+  private renderCode = (): React.ReactNode => {
+    const { rowContainerView } = style;
+    const { code } = this.state;
+    const emptyFields = [0, 0, 0, 0];
+
+    return(
+      <View style={rowContainerView}>
+        {
+          emptyFields.map((e, i) => {
+            const filled = code[i] !== undefined;
+
+            return <CodeField key={i} filled={filled}/>;
+          })
+        }
       </View>
     );
   }
