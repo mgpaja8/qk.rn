@@ -6,7 +6,7 @@ import reducers from './reducers';
 import routes from './screens';
 
 export const AppNavigator = createStackNavigator(routes, {
-  initialRouteName: 'DeviceSetupScreen'
+  initialRouteName: 'SplashScreen'
 });
 
 const store = configureStore({}, reducers);

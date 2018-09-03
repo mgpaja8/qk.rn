@@ -3,11 +3,9 @@ import { Image, StyleSheet, View } from 'react-native';
 import { NavigationStackScreenOptions } from 'react-navigation';
 import { DeviceSetupFormContainer } from '../containers';
 import { color } from '../styles';
-import { getOperationId } from '../lib/asyncStorageManager';
 import { ScreenProps } from '../lib/types';
 
 const logo = require('../../assets/logoWhite.png');
-const noop = () => undefined;
 
 export type DeviceSetupScreenProps = ScreenProps;
 
@@ -15,16 +13,6 @@ export default class DeviceSetupScreen extends PureComponent<DeviceSetupScreenPr
   static navigationOptions: NavigationStackScreenOptions = {
     header: null
   };
-
-  componentDidMount(): void {
-    getOperationId()
-      .then(operationId => {
-        if (operationId) {
-          this.props.navigation.push('CheckInScreen');
-        }
-      })
-      .catch(noop);
-  }
 
   render(): React.ReactNode {
     return (
