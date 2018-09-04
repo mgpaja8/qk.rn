@@ -1,12 +1,23 @@
 import React, { PureComponent } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { color } from '../styles';
 import translation from '../lib/translation';
 import { CodeField, DigitButton } from '../components';
+import { Employee } from '../datasource/types';
+import { AxiosError } from 'axios';
+import { ScreenProps } from '../lib/types';
 
-export interface SignInProps {
-  testProp?: string;
+interface SignInValues {
+  employee?: Employee;
+  error?: AxiosError;
+  loading: boolean;
 }
+
+interface SignInActions {
+  signIn: (pin: string) => void;
+}
+
+export type SignInProps = ScreenProps & SignInValues & SignInActions;
 
 interface SignInState {
   code: number[];
@@ -21,16 +32,26 @@ export class SignIn extends PureComponent<SignInProps, SignInState> {
     };
   }
 
-  componentDidUpdate(): void {
+  componentDidUpdate(prevProps: SignInProps): void {
     const { code } = this.state;
+    const { employee } = this.props;
+
     if (code.length === 4) {
-      console.log('SUBMIT PASS');
+      const codeString = code.join('');
+      this.props.signIn(codeString);
+      this.setState({ code: [] });
+    }
+
+    if (employee && employee !== prevProps.employee) {
+      this.props.navigation.push('CheckInScreen');
     }
   }
 
   render(): React.ReactNode {
+    const { loading } = this.props;
     return (
       <View style={style.container}>
+        {loading && <ActivityIndicator />}
         <Text style={style.headerText}>{translation.SIGN_IN_HEADER}</Text>
         {this.renderCode()}
         {this.renderDigits()}

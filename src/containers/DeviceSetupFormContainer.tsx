@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 import { Action } from '../lib/redux/actions';
 import { AppStore } from '../store';
 import { DeviceSetupForm, DeviceSetupFormProps } from '../components';
-import { signIn } from '../actions/employeeActions';
+import { managerSignIn } from '../actions/employeeActions';
 import { ScreenProps } from '../lib/types';
 
 type StoreProps = Pick<DeviceSetupFormProps, 'loading' | 'error' | 'signedInManager'>;
@@ -23,7 +23,7 @@ interface DispatchProps {
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {
-    signIn: signIn(dispatch)
+    signIn: managerSignIn(dispatch)
   };
 };
 
