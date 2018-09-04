@@ -5,7 +5,7 @@ import { Action, ErrorAction, SuccessAction } from '../lib/redux/actions';
 import { employeeActions } from './actionTypes';
 import { Employee } from '../datasource/types';
 
-export function signIn(dispatch: Dispatch<Action>): (email: string, pin: string) => void {
+export function managerSignIn(dispatch: Dispatch<Action>): (email: string, pin: string) => void {
   return (email: string, pin: string) => {
     dispatch({ type: employeeActions.managerSignIn.start });
     qkDataSource.login(email, pin)
@@ -17,6 +17,23 @@ export function signIn(dispatch: Dispatch<Action>): (email: string, pin: string)
       })
       .catch(error => dispatch<ErrorAction<AxiosError>>({
         type: employeeActions.managerSignIn.fail,
+        error
+      }));
+  };
+}
+
+export function signIn(dispatch: Dispatch<Action>): (pin: string) => void {
+  return (pin: string) => {
+    dispatch({ type: employeeActions.signIn.start });
+    qkDataSource.signIn(pin)
+      .then(employee => {
+        dispatch<SuccessAction<Employee>>({
+          type: employeeActions.signIn.done,
+          value: employee
+        });
+      })
+      .catch(error => dispatch<ErrorAction<AxiosError>>({
+        type: employeeActions.signIn.fail,
         error
       }));
   };
