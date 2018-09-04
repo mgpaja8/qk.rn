@@ -7,13 +7,13 @@ import { DeviceSetupForm, DeviceSetupFormProps } from '../components';
 import { signIn } from '../actions/employeeActions';
 import { ScreenProps } from '../lib/types';
 
-type StoreProps = Pick<DeviceSetupFormProps, 'loading' | 'error' | 'signedInEmployee'>;
+type StoreProps = Pick<DeviceSetupFormProps, 'loading' | 'error' | 'signedInManager'>;
 const mapStateToProps: (store: AppStore) => StoreProps = store => {
-  const { signedInEmployee } = store.employee;
+  const { signedInManager } = store.employee;
   return {
-    loading: signedInEmployee.loading,
-    error: signedInEmployee.error,
-    signedInEmployee: signedInEmployee.value
+    loading: signedInManager.loading,
+    error: signedInManager.error,
+    signedInManager: signedInManager.value
   };
 };
 

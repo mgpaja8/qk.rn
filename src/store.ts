@@ -7,5 +7,5 @@ export interface AppStore {
 }
 
 export interface EmployeeStore {
-  signedInEmployee: APIResult<Employee, AxiosError>;
+  signedInManager: APIResult<Employee, AxiosError>;
 }

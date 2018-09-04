@@ -17,7 +17,7 @@ import { setOperationId } from '../lib/asyncStorageManager';
 export interface DeviceSetupFormValues {
   loading: boolean;
   error?: AxiosError;
-  signedInEmployee?: Employee;
+  signedInManager?: Employee;
 }
 
 export interface DeviceSetupFormActions {
@@ -58,9 +58,9 @@ export class DeviceSetupForm extends PureComponent<DeviceSetupFormProps, DeviceS
   }
 
   componentDidUpdate(prevProps: DeviceSetupFormProps): void {
-    const { signedInEmployee } = this.props;
-    if (signedInEmployee && signedInEmployee !== prevProps.signedInEmployee) {
-      setOperationId(signedInEmployee.operationId);
+    const { signedInManager } = this.props;
+    if (signedInManager && signedInManager !== prevProps.signedInManager) {
+      setOperationId(signedInManager.operationId);
       this.props.navigation.push('SignInScreen');
     }
   }

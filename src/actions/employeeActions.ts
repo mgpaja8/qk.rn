@@ -7,16 +7,16 @@ import { Employee } from '../datasource/types';
 
 export function signIn(dispatch: Dispatch<Action>): (email: string, pin: string) => void {
   return (email: string, pin: string) => {
-    dispatch({ type: employeeActions.signIn.start });
+    dispatch({ type: employeeActions.managerSignIn.start });
     qkDataSource.login(email, pin)
       .then(employee => {
         dispatch<SuccessAction<Employee>>({
-          type: employeeActions.signIn.done,
+          type: employeeActions.managerSignIn.done,
           value: employee
         });
       })
       .catch(error => dispatch<ErrorAction<AxiosError>>({
-        type: employeeActions.signIn.fail,
+        type: employeeActions.managerSignIn.fail,
         error
       }));
   };

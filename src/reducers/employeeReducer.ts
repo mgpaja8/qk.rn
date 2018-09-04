@@ -3,9 +3,9 @@ import { asyncReducer, emptyAPIResult, mapReducersArray } from '../lib/redux/red
 import { employeeActions } from '../actions/actionTypes';
 
 const INITIAL_STATE: EmployeeStore = {
-  signedInEmployee: emptyAPIResult()
+  signedInManager: emptyAPIResult()
 };
 
 export default mapReducersArray<EmployeeStore>([
-  asyncReducer(employeeActions.signIn, 'signedInEmployee')
+  asyncReducer(employeeActions.managerSignIn, 'signedInManager')
 ], INITIAL_STATE);

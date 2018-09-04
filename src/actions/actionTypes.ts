@@ -2,5 +2,5 @@ import { actionTypeGenerator } from '../lib/redux/actions';
 
 const employeeActionGenerator = actionTypeGenerator('EMPLOYEE');
 export const employeeActions = {
-  signIn: employeeActionGenerator.async('SIGN_IN')
+  managerSignIn: employeeActionGenerator.async('MANAGER_SIGN_IN')
 };
