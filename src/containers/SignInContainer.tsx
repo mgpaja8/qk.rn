@@ -5,6 +5,7 @@ import { Action } from '../lib/redux/actions';
 import { AppStore } from '../store';
 import { SignIn, SignInProps } from '../components';
 import { signIn } from '../actions/employeeActions';
+import { tasksForToday } from '../actions/taskActions';
 import { ScreenProps } from '../lib/types';
 
 type StoreProps = Pick<SignInProps, 'loading' | 'error' | 'employee'>;
@@ -19,11 +20,13 @@ const mapStateToProps: (store: AppStore) => StoreProps = store => {
 
 interface DispatchProps {
   signIn: (pin: string) => void;
+  tasksForToday: () => void;
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {
-    signIn: signIn(dispatch)
+    signIn: signIn(dispatch),
+    tasksForToday: tasksForToday(dispatch)
   };
 };
 

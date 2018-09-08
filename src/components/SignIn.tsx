@@ -15,6 +15,7 @@ interface SignInValues {
 
 interface SignInActions {
   signIn: (pin: string) => void;
+  tasksForToday: () => void;
 }
 
 export type SignInProps = ScreenProps & SignInValues & SignInActions;
@@ -30,6 +31,10 @@ export class SignIn extends PureComponent<SignInProps, SignInState> {
     this.state = {
       code: []
     };
+  }
+
+  componentDidMount(): void {
+    this.props.tasksForToday();
   }
 
   componentDidUpdate(prevProps: SignInProps): void {
