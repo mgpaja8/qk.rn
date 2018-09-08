@@ -1,7 +1,9 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import moment from 'moment';
 import { getOperationId } from '../lib/asyncStorageManager';
+import * as normalizers from './normalizers';
 import { SignInPayload } from './types/qkApi';
-import { Employee } from './types';
+import { Employee, TaskGroup } from './types';
 
 export default class QualityKitchenDataSource {
   private qkClient: AxiosInstance;
@@ -31,5 +33,14 @@ export default class QualityKitchenDataSource {
     const response = await this.qkClient.post(uri, payload);
 
     return response.data;
+  }
+
+  async getTasksForToday(): Promise<TaskGroup[]> {
+    const operationId = await getOperationId();
+    const date = moment().format('MM-DD-YYYY');
+    const uri = `/operations/${operationId}/tasks?due=${encodeURIComponent(date)}`;
+    const response = await this.qkClient.get(uri);
+
+    return normalizers.normalizeTasks(response.data);
   }
 }
