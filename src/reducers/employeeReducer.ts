@@ -7,7 +7,15 @@ const INITIAL_STATE: EmployeeStore = {
   employee: emptyAPIResult()
 };
 
+function signOut(store: EmployeeStore): EmployeeStore {
+  return {
+    ...store,
+    employee: INITIAL_STATE.employee
+  };
+}
+
 export default mapReducersArray<EmployeeStore>([
   asyncReducer(employeeActions.managerSignIn, 'signedInManager'),
-  asyncReducer(employeeActions.signIn, 'employee')
+  asyncReducer(employeeActions.signIn, 'employee'),
+  [employeeActions.signOut, signOut]
 ], INITIAL_STATE);

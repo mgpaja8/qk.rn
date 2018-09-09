@@ -38,3 +38,9 @@ export function signIn(dispatch: Dispatch<Action>): (pin: string) => void {
       }));
   };
 }
+
+export function signOut(dispatch: Dispatch<Action>): () => void {
+  return () => {
+    dispatch<Action>({ type: employeeActions.signOut });
+  };
+}
