@@ -7,11 +7,18 @@ import { CheckIn, CheckInProps } from '../components';
 import { signOut } from '../actions/employeeActions';
 import { ScreenProps } from '../lib/types';
 
-type StoreProps = Pick<CheckInProps, 'employee'>;
+type StoreProps = Pick<CheckInProps,
+  'employee' |
+  'taskGroups' |
+  'taskGroupsLoading'
+>;
 const mapStateToProps: (store: AppStore) => StoreProps = store => {
   const { employee } = store.employee;
+  const { tasks } = store.tasks;
   return {
-    employee: employee.value
+    employee: employee.value,
+    taskGroups: tasks.value || [],
+    taskGroupsLoading: tasks.loading
   };
 };
 

@@ -4,6 +4,7 @@ import { Employee, TaskGroup } from './datasource/types';
 
 export interface AppStore {
   employee: EmployeeStore;
+  tasks: TaskStore;
 }
 
 export interface EmployeeStore {
