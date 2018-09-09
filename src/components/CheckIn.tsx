@@ -1,12 +1,14 @@
 import React, { PureComponent } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { CheckInHeader } from '../components';
 import { color } from '../styles';
 import { Employee, TaskGroup } from '../datasource/types';
 import { ScreenProps } from '../lib/types';
 import { chunk } from '../lib/helpers';
+import translation from '../lib/translation';
 
 const COLUMNS = 2;
+const checkInIcon = require('../../assets/check_in.png');
 
 interface CheckInValues {
   employee?: Employee;
@@ -50,6 +52,7 @@ export class CheckIn extends PureComponent<CheckInProps, CheckInState> {
       <View style={style.container}>
         <CheckInHeader employee={employee} signOut={this.props.signOut}/>
         {this.renderTaskGroup()}
+        {this.renderCheckInButton()}
       </View>
     );
   }
@@ -101,6 +104,27 @@ export class CheckIn extends PureComponent<CheckInProps, CheckInState> {
     );
   }
 
+  private renderCheckInButton = (): React.ReactNode => {
+    const { employee } = this.props;
+
+    if (!employee) {
+      return null;
+    }
+
+    return (
+      <TouchableOpacity
+        style={style.checkInButton}
+      >
+        <Image source={checkInIcon} style={style.checkInIcon}/>
+        <Text
+          style={style.checkInButtonText}
+        >
+          {`${translation.CHECK_IN_HEADER} ${employee.fullName}`}
+        </Text>
+      </TouchableOpacity>
+    );
+  }
+
   private toggleTaskGroup = (group: TaskGroup) => () => {
     const { selectedTaskGroups } = this.state;
     const index = selectedTaskGroups.indexOf(group);
@@ -136,6 +160,7 @@ const style = StyleSheet.create({
     borderRadius: 5
   },
   taskGroupsContainer: {
+    flex: 1,
     margin: 10
   },
   marginRight: {
@@ -145,12 +170,32 @@ const style = StyleSheet.create({
     backgroundColor: color.primary
   },
   taskGroupButtonText: {
-    fontWeight: '500',
+    fontWeight: '100',
     color: color.black,
-    fontSize: 12,
+    fontSize: 10,
     textAlign: 'center'
   },
   selectedTaskGroupButtonText: {
     color: color.white
+  },
+  checkInButton: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 40,
+    marginHorizontal: 10,
+    marginBottom: 20,
+    backgroundColor: color.primary
+  },
+  checkInButtonText: {
+    fontWeight: '100',
+    color: color.white,
+    fontSize: 12,
+    textAlign: 'center'
+  },
+  checkInIcon: {
+    height: 20,
+    width: 20,
+    marginRight: 10
   }
 });
