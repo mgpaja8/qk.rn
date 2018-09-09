@@ -1,28 +1,14 @@
 import React, { PureComponent } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import { NavigationStackScreenOptions } from 'react-navigation';
-import { color } from '../styles';
-import translation from '../lib/translation';
+import { CheckInContainer } from '../containers';
+import { ScreenProps } from '../lib/types';
 
-export default class CheckInScreen extends PureComponent {
+export default class CheckInScreen extends PureComponent<ScreenProps> {
   static navigationOptions: NavigationStackScreenOptions = {
     header: null
   };
 
   render(): React.ReactNode {
-    return (
-      <View style={style.container}>
-        <Text>{translation.LOGIN_LABEL}</Text>
-      </View>
-    );
+    return <CheckInContainer navigation={this.props.navigation}/>;
   }
 }
-
-const style = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: color.white,
-    justifyContent: 'flex-start',
-    paddingTop: 44
-  }
-});
