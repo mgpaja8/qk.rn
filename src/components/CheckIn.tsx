@@ -18,6 +18,7 @@ interface CheckInValues {
 
 interface CheckInActions {
   signOut: () => void;
+  checkIn: (pin: string, groups: TaskGroup[]) => void;
 }
 
 export type CheckInProps = CheckInValues & CheckInActions & ScreenProps;
@@ -114,6 +115,7 @@ export class CheckIn extends PureComponent<CheckInProps, CheckInState> {
     return (
       <TouchableOpacity
         style={style.checkInButton}
+        onPress={this.onCheckInPress}
       >
         <Image source={checkInIcon} style={style.checkInIcon}/>
         <Text
@@ -133,6 +135,15 @@ export class CheckIn extends PureComponent<CheckInProps, CheckInState> {
     } else {
       const newTaskGroups = selectedTaskGroups.filter(td => td !== group);
       this.setState({ selectedTaskGroups: newTaskGroups });
+    }
+  }
+
+  private onCheckInPress = () => {
+    const { employee } = this.props;
+    const { selectedTaskGroups } = this.state;
+
+    if (employee) {
+      this.props.checkIn(employee.code, selectedTaskGroups);
     }
   }
 }

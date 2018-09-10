@@ -4,8 +4,9 @@ import { Dispatch } from 'redux';
 import { Action } from '../lib/redux/actions';
 import { AppStore } from '../store';
 import { CheckIn, CheckInProps } from '../components';
-import { signOut } from '../actions/employeeActions';
+import { checkIn, signOut } from '../actions/employeeActions';
 import { ScreenProps } from '../lib/types';
+import { TaskGroup } from '../datasource/types';
 
 type StoreProps = Pick<CheckInProps,
   'employee' |
@@ -24,11 +25,13 @@ const mapStateToProps: (store: AppStore) => StoreProps = store => {
 
 interface DispatchProps {
   signOut: () => void;
+  checkIn: (pin: string, groups: TaskGroup[]) => void;
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {
-    signOut: signOut(dispatch)
+    signOut: signOut(dispatch),
+    checkIn: checkIn(dispatch)
   };
 };
 
