@@ -2,7 +2,8 @@ import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import moment from 'moment';
 import { getOperationId } from '../lib/asyncStorageManager';
 import * as normalizers from './normalizers';
-import { SignInPayload } from './types/qkApi';
+import * as denormalizers from './denormalizers';
+import { CheckInPayload, SignInPayload } from './types/qkApi';
 import { Employee, TaskGroup } from './types';
 
 export default class QualityKitchenDataSource {
@@ -42,5 +43,17 @@ export default class QualityKitchenDataSource {
     const response = await this.qkClient.get(uri);
 
     return normalizers.normalizeTasks(response.data);
+  }
+
+  async assignTaskGroups(employeeCode: string, taskGroups: TaskGroup[]): Promise<boolean> {
+    const payload: CheckInPayload = {
+      employeeCode,
+      taskGroupings: denormalizers.getTaskAssignmentGroups(taskGroups)
+    };
+    const operationId = await getOperationId();
+    const uri = `/operations/${operationId}/tasks/assignments`;
+    const response = await this.qkClient.put(uri, payload);
+
+    return response.status === 200;
   }
 }
