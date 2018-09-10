@@ -10,6 +10,7 @@ export interface AppStore {
 export interface EmployeeStore {
   signedInManager: APIResult<Employee, AxiosError>;
   employee: APIResult<Employee, AxiosError>;
+  checkIn: APIResult<boolean, AxiosError>;
 }
 
 export interface TaskStore {
